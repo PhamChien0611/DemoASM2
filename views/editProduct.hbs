@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" </head>
+
+</head>
+
+<body>
+    {{!-- Header --}}
+    <div id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a href="/home">
+                <h1 class="navbar-brand">ATN</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Product
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/manageProducts">Manage Products</a>
+                            <a class="dropdown-item" href="/addProduct">Add Product</a>
+                        </div>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Account
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/manageAccounts">Manage Accounts</a>
+                            <a class="dropdown-item" href="/addAccount">Add Account</a>
+                        </div>
+
+                    </li>
+                </ul>
+                <form action="/search" method="POST" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" name="txtSearch" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome: <b>{{loginName}}</b>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/">LOGOUT</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    {{!-- Content --}}
+    <div id="wrap">
+        <div class="mt-4 ml-4 mr-4">
+            <form action="/updateProduct" method="post">
+                <input type="hidden" name="id" value="{{product._id}}">
+                <div class="form-group">
+                    <label for="exampleInputName">Name</label>
+                    <input type="text" class="form-control" name="txtName" value="{{product.name}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPrice">Price</label>
+                    <input type="text" class="form-control" name="txtPrice" value="{{product.price}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPrice">Image URL</label>
+                    <input type="text" class="form-control" name="imgURL" value="{{product.imgURL}}">
+                </div>
+
+                <button type="submit" class="btn btn-primary" value="Update">Update</button>
+
+            </form>
+        </div>
+    </div>
+
+    {{!-- Footer --}}
+    <div id="footer">
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
