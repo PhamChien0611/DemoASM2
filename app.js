@@ -161,3 +161,5 @@ APP.post('/login', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 APP.listen(PORT);
+
+console.debug('Server is running on ' + PORT);
