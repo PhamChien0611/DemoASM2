@@ -53,13 +53,13 @@ APP.post('/doAddProduct', async (req, res) => {
     res.redirect('manageProducts');
 })
 
-APP.get('/addProduct', (req, res) => {
+APP.get('/addProduct', requiresLogin, (req, res) => {
     const username = req.session.username;
-    res.render('addProduct', {loginName : username})
+    res.render('addProduct', { loginName: username })
 })
 
 //Manage Products
-APP.get('/manageProducts', async (req, res) => {
+APP.get('/manageProducts', requiresLogin, async (req, res) => {
     const username = req.session.username;
     const allProducts = await getAllProducts();
     res.render('manageProducts', { loginName: username, data: allProducts })
@@ -73,9 +73,9 @@ APP.get('/delete', async (req, res) => {
 })
 
 //Home Page
-APP.get('/home', async (req, res) => {
-    if (!req.session.username) 
-        res.redirect('/');    
+APP.get('/home', requiresLogin, async (req, res) => {
+    // if (!req.session.username) 
+    //     res.redirect('/');    
     const allProducts = await getAllProducts();
     const username = req.session.username;
     res.render('home', { loginName: username, data: allProducts })
@@ -95,7 +95,7 @@ APP.post('/search', async (req, res) => {
 // Begin : Manage Account
 
 //Get All Accounts
-APP.get('/manageAccounts', async (req, res) => {
+APP.get('/manageAccounts', requiresLogin, async (req, res) => {
     const allAccounts = await getAllAccounts();
     const username = req.session.username;
     res.render('manageAccounts', { loginName: username, data: allAccounts })
@@ -110,7 +110,7 @@ APP.post('/doAddAccount', async (req, res) => {
     res.redirect('manageAccounts');
 })
 
-APP.get('/addAccount', (req, res) => {
+APP.get('/addAccount', requiresLogin, (req, res) => {
     const username = req.session.username;
     res.render('addAccount', { loginName: username })
 })
@@ -131,7 +131,7 @@ APP.get('/editAccount', async (req, res) => {
 })
 
 //Update account function
-APP.post('/updateAccount', async (req, res) => {
+APP.post('/updateAccount', requiresLogin, async (req, res) => {
     const id = req.body.id;
     const usernameInput = req.body.txtUsername;
     const passwordInput = req.body.txtPassword;
@@ -165,6 +165,11 @@ APP.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
+//Custom Middleware
+function requiresLogin(req, res) {
+    if (!req.session.username)
+        res.redirect('/');
+}
 
 const PORT = process.env.PORT || 5000;
 APP.listen(PORT);
