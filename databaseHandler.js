@@ -84,6 +84,7 @@ async function updateAccount(id, usernameInput, passwordInput) {
     dbo.collection("accounts").updateOne({ _id: ObjectId(id) }, { $set: { username: usernameInput, password: passwordInput } })
 }
 
+//Check Account function
 async function checkUser(usernameInput, passwordInput) {
     const dbo = await getDB();
     const results = await dbo.collection("accounts").findOne({ username: usernameInput, password: passwordInput  });

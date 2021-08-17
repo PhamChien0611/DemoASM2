@@ -74,6 +74,8 @@ APP.get('/delete', async (req, res) => {
 
 //Home Page
 APP.get('/home', async (req, res) => {
+    if (!req.session.username) 
+        res.redirect('/');    
     const allProducts = await getAllProducts();
     const username = req.session.username;
     res.render('home', { loginName: username, data: allProducts })
@@ -139,7 +141,7 @@ APP.post('/updateAccount', async (req, res) => {
 
 // End: Manage account
 
-//Login Function + Logout Function
+//Login Function 
 APP.get('/', (req, res) => {
     res.render('login');
 })
@@ -148,7 +150,6 @@ APP.post('/login', async (req, res) => {
     const usernameInput = req.body.txtUsername;
     const passwordInput = req.body.txtPassword;
     const found = await checkUser(usernameInput, passwordInput)
-
     if (found) {
         req.session.username = usernameInput;
         res.redirect('home');
@@ -156,6 +157,12 @@ APP.post('/login', async (req, res) => {
     else {
         res.render('login', { errorMsg: "Username or password is incorrect. Please, try again!" });
     }
+})
+
+//Logout Function
+APP.get('/logout', (req, res) => {
+    req.session.username = false
+    res.redirect('/')
 })
 
 
