@@ -6,12 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
-    "watch": "node-sass --watch assets/scss/login.scss assets/css/login.css"
+    "watch": "node-sass --watch assets/scss/login.scss public/login.css"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "bootstrap-icons": "^1.5.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",

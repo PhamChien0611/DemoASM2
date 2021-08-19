@@ -3,15 +3,13 @@ const path = require('path');
 const { Int32 } = require('mongodb');
 const hbs = require('hbs')
 const session = require('express-session');
-const bodyParser = require('body-parser')
 
 const { addProduct, deleteProduct, searchProduct, getAllProducts, getProductById, updateProduct, getAllAccounts, addAccount, deleteAccount, getAccountById, updateAccount, checkUser } = require('./databaseHandler');
 const { Console } = require('console');
 
 const APP = EXPRESS()
 
-APP.use(bodyParser.urlencoded({ extended: false }));
-
+// Use the session middleware
 APP.use(session({
     resave: true,
     saveUninitialized: true,
@@ -23,6 +21,8 @@ APP.use(EXPRESS.urlencoded({ extended: true }))
 
 APP.set('view engine', 'hbs');
 APP.set('views', path.join(__dirname, 'views'))
+APP.use(EXPRESS.static('public'))
+
 
 // Begin : Manage Product
 //Search by ID to edit Product Function
@@ -131,7 +131,7 @@ APP.get('/editAccount', async (req, res) => {
 })
 
 //Update account function
-APP.post('/updateAccount', requiresLogin, async (req, res) => {
+APP.post('/updateAccount',  async (req, res) => {
     const id = req.body.id;
     const usernameInput = req.body.txtUsername;
     const passwordInput = req.body.txtPassword;
@@ -155,7 +155,7 @@ APP.post('/login', async (req, res) => {
         res.redirect('home');
     }
     else {
-        res.render('login', { errorMsg: "Username or password is incorrect. Please, try again!" });
+        res.render('login', { errorMsg: "Username or password is incorrect!" });
     }
 })
 
@@ -165,10 +165,13 @@ APP.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-//Custom Middleware
-function requiresLogin(req, res) {
-    if (!req.session.username)
-        res.redirect('/');
+//custom middleware
+function requiresLogin(req,res,next){
+    if(req.session.username){
+        return next()
+    }else{
+        res.redirect('/')
+    }
 }
 
 const PORT = process.env.PORT || 5000;
