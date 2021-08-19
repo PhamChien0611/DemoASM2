@@ -131,7 +131,7 @@ APP.get('/editAccount', async (req, res) => {
 })
 
 //Update account function
-APP.post('/updateAccount',  async (req, res) => {
+APP.post('/updateAccount', async (req, res) => {
     const id = req.body.id;
     const usernameInput = req.body.txtUsername;
     const passwordInput = req.body.txtPassword;
@@ -166,10 +166,10 @@ APP.get('/logout', (req, res) => {
 })
 
 //custom middleware
-function requiresLogin(req,res,next){
-    if(req.session.username){
+function requiresLogin(req, res, next) {
+    if (req.session.username) {
         return next()
-    }else{
+    } else {
         res.redirect('/')
     }
 }
