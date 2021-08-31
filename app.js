@@ -101,7 +101,7 @@ APP.get('/manageAccounts', requiresLogin, async (req, res) => {
     res.render('manageAccounts', { loginName: username, data: allAccounts })
 })
 
-//Add product Function
+//Add Account Function
 APP.post('/doAddAccount', async (req, res) => {
     const usernameInput = req.body.txtUsername;
     const passwordInput = req.body.txtPassword;
