@@ -73,12 +73,14 @@
                 <input type="hidden" name="id" value="{{account._id}}">
                 <div class="form-group">
                     <label for="exampleInputUsername">Username</label>
-                    <input type="text" class="form-control" name="txtUsername" value="{{account.username}}">
+                    <input type="text" class="form-control" name="txtUsername" required="username" 
+                        value="{{account.username}}">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputPassword">Password</label>
-                    <input type="text" class="form-control" name="txtPassword" value="{{account.password}}">
+                    <input type="text" class="form-control" name="txtPassword" required="password"
+                        value="{{account.password}}">
                 </div>
 
                 <button type="submit" class="btn btn-primary" value="Update">Update</button>

@@ -71,7 +71,6 @@ async function deleteAccount(idInput) {
     await dbo.collection("accounts").deleteOne({ _id: ObjectId(idInput) });
 }
 
-
 //Get Account by ID
 async function getAccountById(idInput) {
     const dbo = await getDB();

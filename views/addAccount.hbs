@@ -72,13 +72,15 @@
                 <div class="form-group">
                     <label for="exampleInputName">Username</label>
                     <input type="text" class="form-control" id="exampleInputUsername" aria-describedby="emailHelp"
-                        name="txtUsername" placeholder="Enter username">
+                        name="txtUsername" placeholder="Enter username" required="username">
+                        <span style="color: red;">{{error.usernameInput}}</span>
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputPrice">Password</label>
                     <input type="text" class="form-control" id="exampleInputPrice" aria-describedby="emailHelp"
-                        name="txtPassword" placeholder="Enter password">
+                        name="txtPassword" placeholder="Enter password" required="password">
+                        <span style="color: red;">{{error.passwordInput}}</span>
                 </div>
 
                 <button type="submit" class="btn btn-primary" value="Add">Add</button>

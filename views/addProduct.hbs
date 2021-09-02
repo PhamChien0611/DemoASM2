@@ -72,18 +72,22 @@
                 <div class="form-group">
                     <label for="exampleInputName">Name</label>
                     <input type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp"
-                        name="txtName" placeholder="Enter name">
+                        name="txtName" placeholder="Enter name" required="Name">
+                        <span style="color: red;">{{error.nameInput}}</span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPrice">Price</label>
                     <input type="text" class="form-control" id="exampleInputPrice" aria-describedby="emailHelp"
-                        name="txtPrice" placeholder="Enter price">
+                        name="txtPrice" placeholder="Enter price" required="Price">
+                        <span style="color: red;">{{error.priceInput}}</span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPrice">Image URL</label>
                     <input type="text" class="form-control" id="exampleInputPrice" aria-describedby="emailHelp"
-                        name="imgURL" placeholder="Enter URL">
+                        name="imgURL" placeholder="Enter URL" required="imgURL">  
+                        <span style="color: red;">{{error.imgURLInput}}</span>                      
                 </div>
+
 
                 <button type="submit" class="btn btn-primary" value="Add">Add</button>
             </form>

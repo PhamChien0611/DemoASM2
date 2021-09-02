@@ -11,7 +11,7 @@ const APP = EXPRESS()
 
 // Use the session middleware
 APP.use(session({
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     secret: 'abcc##$$0911233$%%%32222',
     cookie: { maxAge: 60000 }
@@ -49,8 +49,34 @@ APP.post('/doAddProduct', async (req, res) => {
     const priceInput = req.body.txtPrice;
     const imgURLInput = req.body.imgURL;
     const newProduct = { name: nameInput, price: Int32(priceInput), imgURL: imgURLInput };
-    await addProduct(newProduct);
-    res.redirect('manageProducts');
+
+    // //Check dữ liệu đầu vào
+
+    var isErr = false;
+    var err = {};
+    if (nameInput.trim().length == 0) {
+        err.nameInput = "Name input is invalid"
+        isErr = true;
+    }
+
+    if (isNaN(priceInput) || priceInput.trim().length == 0) {
+        err.priceInput = "Price input is invalid"
+        isErr = true;
+    }
+
+    if (imgURLInput.trim().length == 0) {
+        err.imgURLInput = "Image URL input is invalid"
+        isErr = true;
+    }
+
+    if (isErr) {
+        res.render('addProduct', { error: err })
+    }
+
+    else {
+        await addProduct(newProduct);
+        res.redirect('manageProducts');
+    }
 })
 
 APP.get('/addProduct', requiresLogin, (req, res) => {
@@ -74,8 +100,6 @@ APP.get('/delete', async (req, res) => {
 
 //Home Page
 APP.get('/home', requiresLogin, async (req, res) => {
-    // if (!req.session.username) 
-    //     res.redirect('/');    
     const allProducts = await getAllProducts();
     const username = req.session.username;
     res.render('home', { loginName: username, data: allProducts })
@@ -101,13 +125,36 @@ APP.get('/manageAccounts', requiresLogin, async (req, res) => {
     res.render('manageAccounts', { loginName: username, data: allAccounts })
 })
 
-//Add product Function
+//Add Account Function
 APP.post('/doAddAccount', async (req, res) => {
     const usernameInput = req.body.txtUsername;
     const passwordInput = req.body.txtPassword;
     const newAccount = { username: usernameInput, password: passwordInput };
-    await addAccount(newAccount);
-    res.redirect('manageAccounts');
+
+    //Check input username and password
+    var isErr = false;
+    var err = {};
+
+    //Check condition username: Username must be more than 3 characters.
+    if (usernameInput.length < 3) {
+        err.usernameInput = "Username must be more than 3 characters.";
+        isErr = true;
+    }
+
+    //Check condition password: Password must be at least 8 characters long, one letter, one non-letter character, one special character.
+    if (passwordInput.search(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/) == -1) {
+        err.passwordInput = "Password must be at least 8 characters long, one letter, one non-letter character, one special character.";
+        isErr = true;
+    }
+
+    if (isErr) {
+        res.render('addAccount', { error: err })
+    }
+
+    else {
+        await addAccount(newAccount);
+        res.redirect('manageAccounts');
+    }
 })
 
 APP.get('/addAccount', requiresLogin, (req, res) => {
