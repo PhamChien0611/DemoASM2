@@ -44,14 +44,18 @@ APP.post('/updateProduct', async (req, res) => {
 })
 
 //Add product Function
+APP.get('/addProduct', requiresLogin, (req, res) => {
+    const username = req.session.username;
+    res.render('addProduct', { loginName: username })
+})
+
 APP.post('/doAddProduct', async (req, res) => {
     const nameInput = req.body.txtName;
     const priceInput = req.body.txtPrice;
     const imgURLInput = req.body.imgURL;
     const newProduct = { name: nameInput, price: Int32(priceInput), imgURL: imgURLInput };
 
-    // //Check dữ liệu đầu vào
-
+    // Check input
     var isErr = false;
     var err = {};
     if (nameInput.trim().length == 0) {
@@ -77,11 +81,6 @@ APP.post('/doAddProduct', async (req, res) => {
         await addProduct(newProduct);
         res.redirect('manageProducts');
     }
-})
-
-APP.get('/addProduct', requiresLogin, (req, res) => {
-    const username = req.session.username;
-    res.render('addProduct', { loginName: username })
 })
 
 //Manage Products
@@ -126,6 +125,11 @@ APP.get('/manageAccounts', requiresLogin, async (req, res) => {
 })
 
 //Add Account Function
+APP.get('/addAccount', requiresLogin, (req, res) => {
+    const username = req.session.username;
+    res.render('addAccount', { loginName: username })
+})
+
 APP.post('/doAddAccount', async (req, res) => {
     const usernameInput = req.body.txtUsername;
     const passwordInput = req.body.txtPassword;
@@ -155,11 +159,6 @@ APP.post('/doAddAccount', async (req, res) => {
         await addAccount(newAccount);
         res.redirect('manageAccounts');
     }
-})
-
-APP.get('/addAccount', requiresLogin, (req, res) => {
-    const username = req.session.username;
-    res.render('addAccount', { loginName: username })
 })
 
 //Delete Account Function
