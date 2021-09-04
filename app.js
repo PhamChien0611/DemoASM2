@@ -11,8 +11,8 @@ const APP = EXPRESS()
 
 // Use the session middleware
 APP.use(session({
-    resave: false,
-    saveUninitialized: true,
+    resave: true,
+    saveUninitialized: false,
     secret: 'abcc##$$0911233$%%%32222',
     cookie: { maxAge: 60000 }
 }));
@@ -53,8 +53,8 @@ APP.post('/doAddProduct', async (req, res) => {
     const nameInput = req.body.txtName;
     const priceInput = req.body.txtPrice;
     const imgURLInput = req.body.imgURL;
-    const newProduct = { name: nameInput, price: Int32(priceInput), imgURL: imgURLInput };
-
+    const newProduct = { name: nameInput, price: priceInput, imgURL: imgURLInput};
+ 
     // Check input
     var isErr = false;
     var err = {};

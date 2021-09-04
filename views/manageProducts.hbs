@@ -80,16 +80,15 @@
                 <tbody>
                     {{#each data}}
                     <tr>
-                        <th scope="row">
-                            {{this.name}}
-                            </th>
+                        <th scope="row">{{this.name}}</th>
                         <td>{{this.price}}</td>
                         <td>
                             <img class="card-img-top" src="{{this.imgURL}}" alt="{{this.name}}"
                                 style="width: 150px; height: 100px">
                         </td>
                         <td>
-                            <a style="color: black; text-decoration: none;" href="/delete?id={{_id}}" onclick="return confirm('Do you want to delete ?')">
+                            <a style="color: black; text-decoration: none;" href="/delete?id={{_id}}"
+                                onclick="return confirm('Do you want to delete ?')">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
                                     class="bi bi-trash mr-4" viewBox="0 0 16 16">
                                     <path
