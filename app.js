@@ -24,7 +24,7 @@ APP.set('views', path.join(__dirname, 'views'))
 APP.use(EXPRESS.static('public'))
 
 
-// Begin : Manage Product
+// Begin : Manage Products
 //Search by ID to edit Product Function
 APP.get('/editProduct', async (req, res) => {
     const idInput = req.query.id;
@@ -112,10 +112,10 @@ APP.post('/search', async (req, res) => {
     res.render('manageProducts', { loginName: username, data: allProducts })
 })
 
-// End: Manage Product
+// End: Manage Products
 
 
-// Begin : Manage Account
+// Begin : Manage Accounts
 
 //Get All Accounts
 APP.get('/manageAccounts', requiresLogin, async (req, res) => {
@@ -185,7 +185,7 @@ APP.post('/updateAccount', async (req, res) => {
     res.redirect('manageAccounts');
 })
 
-// End: Manage account
+// End: Manage accounts
 
 //Login Function 
 APP.get('/', (req, res) => {
